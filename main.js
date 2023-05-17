@@ -84,7 +84,7 @@ function filtrarProductos(){
 }
 
 // creo funcion flecha para mostrar el inventario por consola
-const mostrarInventario = () => {console.log(inventario)}
+const mostrarInventario = () => {console.table(inventario)}
 
 // creo variable operar para el bucle while, que controlara si el usuario quiere seguir opearando o salir 
 let operar=true
