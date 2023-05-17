@@ -33,8 +33,8 @@ function agregarProducto(){
         alert("✘✘ INCORRECTO ✘✘ \n INGRESE DATOS VALIDOS")
         nombre = prompt("Ingrese nombre del producto")
         marca = prompt("Ingrese marca del producto")
-        precio = number(prompt("Ingrese precio del producto"))
-        stock = number(prompt("Ingrese cantidad de stock del producto"))
+        precio = Number(prompt("Ingrese precio del producto"))
+        stock = Number(prompt("Ingrese cantidad de stock del producto"))
     }    
      // creo nuevo producto usando el constructor Producto
     let producto = new Producto(nombre,marca,precio,stock)
