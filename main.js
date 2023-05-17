@@ -1,0 +1,109 @@
+alert("-- BIENVENIDO AL CONTROL DE INVENTARIO [MODO TRABAJADOR] --")
+
+// creo array vacio de inventario donde se guardaran los productos
+inventario=[]
+
+// Creo funcion constructora que me ayudara a crear los objetos productos.
+const Producto = function(nombre,marca,precio,stock){
+    this.nombre= nombre,
+    this.marca=marca,
+    this.precio=precio,
+    this.stock=stock
+}
+
+//creo algunos productos que van a existir en el array inventario.
+let producto1 = new Producto("Poleron Tommy","Tommy hilfiger",20000,3)
+let producto2 = new Producto("Chaqueta Calvin","Calvin klein",80000,10)
+let producto3 = new Producto("Cortaviento The north face","The north face",45000,5)
+let producto4 = new Producto("Pantalon Tommy","Tommy hilfiger",45000,5)
+inventario.push(producto1)
+inventario.push(producto2)
+inventario.push(producto3)
+inventario.push(producto4)
+
+function agregarProducto(){
+    // Pido los datos del producto por pantalla
+    let nombre = prompt("Ingrese nombre del producto")
+    let marca = prompt("Ingrese marca del producto")
+    let precio = prompt("Ingrese precio del producto")
+    let stock = prompt("Ingrese cantidad de stock del producto")
+
+    // Valido que datos ingresados no son vacios en nombre, marca,precio y stock y que son numero en caso de precio y stock
+    while (nombre == "" || marca == "" || precio == "" || stock== "" || isNaN(precio) || isNaN(stock)){
+        alert("✘✘ INCORRECTO ✘✘ \n INGRESE DATOS VALIDOS")
+        nombre = prompt("Ingrese nombre del producto")
+        marca = prompt("Ingrese marca del producto")
+        precio = prompt("Ingrese precio del producto")
+        stock = prompt("Ingrese cantidad de stock del producto")
+    }
+     // creo nuevo producto usando el constructor Producto
+    let producto = new Producto(nombre,marca,precio,stock)
+    // Valido que el producto no este ingresado previamente al stock; IMPORTANTE: uso funcíon de orden superior some(), es true si ya pertence al inventario
+    if (inventario.some(ingreso => ingreso.nombre == producto.nombre)){
+        // si existe envío mensaje de error
+        alert("NO SE PUDO INGRESAR, PRODUCTO YA EXISTE");
+    }else{
+        // si no existe, uso metodo push para incorporar al array el objeto creado
+        inventario.push(producto)
+        // aviso mediante alert que producto fue agregado correctamente
+        alert("EL PRODUCTO " + nombre.toUpperCase() + " FUE AGREGADO CORRECTAMENTE")
+    }
+}
+
+function borrarProducto(){
+    // solicito nombre de producto a borrar
+    let productoABorrar = prompt("Ingrese nombre del producto a borrar").toUpperCase()
+    //verifico si existe usando la funcion find
+    const encontrados = inventario.find((encontrado) => encontrado.nombre.toUpperCase() == productoABorrar)
+    // si en el array encontrados hay al menos 1 elemento, vamos a borrarlos, sino no existe en el inventario el producto que se quiere borrar
+    if (encontrados.length>0){
+        inventario= inventario.filter(elemento => elemento.nombre.toUpperCase() !== productoABorrar )
+    }else{
+        alert("Producto ingresado no existe en el inventario")
+    }
+}
+
+function filtrarProductos(){
+    // pido por pantalla el producto, le saco los espacios y con uppercase hago que no sea keysensitive
+        let palabraAFiltrar = prompt("Ingrese producto a buscar").toUpperCase()
+        // creo variable resultado que contendra un array devuelto por la funcion filter en la cual se incluyen los productos con el mismo nombre 
+        let filtrados = inventario.filter((producto) => producto.nombre.toUpperCase().includes(palabraAFiltrar))
+        // voy a verificar si el filtro encontro coincidencias, si encontro, mostrare una tabla con los resultados, si no, mostrare un alert que indique que no hay coincidencias
+        if (filtrados.length>0){
+            console.table(filtrados)
+            alert("Busqueda exitosa; revisar en Consola")
+        }else{
+            alert("No hay coincidencias con su busqueda")
+        }
+}
+
+// creo funcion flecha para mostrar el inventario por consola
+const mostrarInventario = () => {console.log(inventario)}
+
+// creo variable operar para el bucle while, que controlara si el usuario quiere seguir opearando o salir 
+let operar=true
+while (operar){
+    // le pido al usuario que ingrese mediante prompt una opcion y luego valido con un while que sea valida dicha opción
+    let eleccion = prompt("ESCRIBE UNA OPCION:\n\n • AGREGAR PRODUCTO \n • BORRAR PRODUCTO\n • FILTRAR PRODUCTOS [SE MUESTRA POR CONSOLA] \n • MOSTRAR INVENTARIO [SE MUESTRA POR CONSOLA] \n • SALIR --> PRESIONA CANCELAR \n")
+    while ((eleccion.toUpperCase() !== "AGREGAR PRODUCTO") &&  (eleccion.toUpperCase() !== "BORRAR PRODUCTO") &&  (eleccion.toUpperCase() !== "FILTRAR PRODUCTOS") && (eleccion.toUpperCase() !=="MOSTRAR INVENTARIO")){
+    eleccion = prompt("✘✘ INCORRECTO ✘✘\n\nESCRIBE UNA OPCION:\n\n • AGREGAR PRODUCTO \n  • BORRAR PRODUCTO \n • FILTRAR PRODUCTOS [SE MUESTRA POR CONSOLA] \n • MOSTRAR INVENTARIO [SE MUESTRA POR CONSOLA] \n • SALIR --> PRESIONA CANCELAR \n")
+    }
+
+    // con la eleccion hecha por el usuario, busco a cual caso corresponde y ejecuto la funcion que corresponda
+     switch(eleccion.toUpperCase()){
+        case "AGREGAR PRODUCTO":
+            agregarProducto()
+            break
+        case "BORRAR PRODUCTO":
+            borrarProducto()
+            break
+        case "FILTRAR PRODUCTOS":
+            filtrarProductos()
+            break
+        case "MOSTRAR INVENTARIO":
+            mostrarInventario()
+            break
+    }
+// le pregunto al usuario si quiere seguir operando o desea salir.
+operar = confirm("¿Quieres seguir operando? Aceptar(Si) || Cancelar(No)")
+}
