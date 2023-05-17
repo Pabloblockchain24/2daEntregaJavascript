@@ -25,8 +25,8 @@ function agregarProducto(){
     // Pido los datos del producto por pantalla
     let nombre = prompt("Ingrese nombre del producto")
     let marca = prompt("Ingrese marca del producto")
-    let precio = number(prompt("Ingrese precio del producto"))
-    let stock = number(prompt("Ingrese cantidad de stock del producto"))
+    let precio = Number(prompt("Ingrese precio del producto"))
+    let stock = Number(prompt("Ingrese cantidad de stock del producto"))
 
     // Valido que datos ingresados no son vacios en nombre, marca,precio y stock y que son numero en caso de precio y stock
     while (nombre == "" || marca == "" || precio == "" || stock== "" || isNaN(precio) || isNaN(stock)){
