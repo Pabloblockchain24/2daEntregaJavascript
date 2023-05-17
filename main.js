@@ -1,6 +1,6 @@
 alert("-- BIENVENIDO AL CONTROL DE INVENTARIO [MODO TRABAJADOR] --")
 
-// creo array vacio de inventario donde se guardaran los productos
+// Creo array vacio de inventario donde se guardaran los productos
 inventario=[]
 
 // Creo funcion constructora que me ayudara a crear los objetos productos.
@@ -22,7 +22,7 @@ inventario.push(producto3)
 inventario.push(producto4)
 
 function agregarProducto(){
-    // Pido los datos del producto por pantalla
+    // Pide los datos del producto por pantalla
     let nombre = prompt("Ingrese nombre del producto")
     let marca = prompt("Ingrese marca del producto")
     let precio = Number(prompt("Ingrese precio del producto"))
@@ -36,32 +36,32 @@ function agregarProducto(){
         precio = Number(prompt("Ingrese precio del producto"))
         stock = Number(prompt("Ingrese cantidad de stock del producto"))
     }    
-     // creo nuevo producto usando el constructor Producto
+    // Creo nuevo producto usando el constructor Producto
     let producto = new Producto(nombre,marca,precio,stock)
-    // Valido que el producto no este ingresado previamente al stock; IMPORTANTE: uso funcíon de orden superior some(), es true si ya pertence al inventario
+    // Valido que el producto no este ingresado previamente al stock; IMPORTANTE: uso funcíon de orden superior some(), es true si ya pertenece al inventario
     if (inventario.some(ingreso => ingreso.nombre == producto.nombre)){
-        // si existe envío mensaje de error
+        // Si existe envío mensaje de error
         alert("NO SE PUDO INGRESAR, PRODUCTO YA EXISTE");
     }else{
-        // si no existe, uso metodo push para incorporar al array el objeto creado
+        // Si no existe, uso metodo push para incorporar al array el objeto creado
         inventario.push(producto)
-        // aviso mediante alert que producto fue agregado correctamente
+        // Aviso mediante alert que producto fue agregado correctamente
         alert("EL PRODUCTO " + nombre.toUpperCase() + " FUE AGREGADO CORRECTAMENTE")
     }
 }
 
 function borrarProducto(){
-    // solicito nombre de producto a borrar
+    // Solicito nombre de producto a borrar
     let productoABorrar = prompt("INGRESE NOMBRE DEL PRODUCTO A BORRAR").toUpperCase()
-    //verifico si existe usando la funcion find
+    //Verifico si existe usando la funcion find
     const encontrado = inventario.find((encontrar) => encontrar.nombre.toUpperCase() === productoABorrar)
-    // si el objeto encontrado es distinto de null, significa que existe en el inventario y se borrara; en caso contrario se emite alerta de que no existe
+    // Si el objeto encontrado es distinto de null, significa que existe en el inventario y se borrara; en caso contrario se emite alerta de que no existe
     if (encontrado != null){
-        // creo un nuevo inventario identico al anterior, pero dejando fuera todos los elementos que sean igual al producto que se quiere borrar
+        // Creo un nuevo inventario identico al anterior, pero dejando fuera todos los elementos que sean igual al producto que se quiere borrar
         inventario= inventario.filter(elemento => elemento.nombre.toUpperCase() !== productoABorrar)
-        // creo un alert indicando que el producto se borro exitosamenete
+        // Muestro un alert indicando que el producto se borro exitosamenete
         alert("PRODUCTO " + productoABorrar + " FUE BORRADO EXITOSAMENTE")
-        // muestro el nuevo inventario
+        // Muestro el nuevo inventario
         console.log("Su nuevo inventario es:")
         console.table(inventario)
     }else{ 
@@ -70,11 +70,11 @@ function borrarProducto(){
 }
 
 function filtrarProductos(){
-    // pido por pantalla el producto, le saco los espacios y con uppercase hago que no sea keysensitive
+    // Pido por pantalla el producto y con uppercase hago que no sea keysensitive
         let palabraAFiltrar = prompt("Ingrese producto a buscar").toUpperCase()
-        // creo variable resultado que contendra un array devuelto por la funcion filter en la cual se incluyen los productos con el mismo nombre 
+        // Creo variable filtrados que contendra un array devuelto por la funcion filter() en la cual se incluyen los productos con el mismo nombre  mediante la funcion includes()
         let filtrados = inventario.filter((producto) => producto.nombre.toUpperCase().includes(palabraAFiltrar))
-        // voy a verificar si el filtro encontro coincidencias, si encontro, mostrare una tabla con los resultados, si no, mostrare un alert que indique que no hay coincidencias
+        // Voy a verificar si el filtro encontro coincidencias, si encontro, mostrare una tabla con los resultados, si no, mostrare un alert que indique que no hay coincidencias
         if (filtrados.length>0){
             console.table(filtrados)
             alert("Busqueda exitosa; revisar en Consola")
