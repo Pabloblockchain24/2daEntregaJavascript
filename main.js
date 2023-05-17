@@ -52,14 +52,20 @@ function agregarProducto(){
 
 function borrarProducto(){
     // solicito nombre de producto a borrar
-    let productoABorrar = prompt("Ingrese nombre del producto a borrar").toUpperCase()
+    let productoABorrar = prompt("INGRESE NOMBRE DEL PRODUCTO A BORRAR").toUpperCase()
     //verifico si existe usando la funcion find
-    const encontrados = inventario.find((encontrado) => encontrado.nombre.toUpperCase() == productoABorrar)
-    // si en el array encontrados hay al menos 1 elemento, vamos a borrarlos, sino no existe en el inventario el producto que se quiere borrar
-    if (encontrados.length>0){
-        inventario= inventario.filter(elemento => elemento.nombre.toUpperCase() !== productoABorrar )
-    }else{
-        alert("Producto ingresado no existe en el inventario")
+    const encontrado = inventario.find((encontrar) => encontrar.nombre.toUpperCase() === productoABorrar)
+    // si el objeto encontrado es distinto de null, significa que existe en el inventario y se borrara; en caso contrario se emite alerta de que no existe
+    if (encontrado != null){
+        // creo un nuevo inventario identico al anterior, pero dejando fuera todos los elementos que sean igual al producto que se quiere borrar
+        inventario= inventario.filter(elemento => elemento.nombre.toUpperCase() !== productoABorrar)
+        // creo un alert indicando que el producto se borro exitosamenete
+        alert("PRODUCTO " + productoABorrar + " FUE BORRADO EXITOSAMENTE")
+        // muestro el nuevo inventario
+        console.log("Su nuevo inventario es:")
+        console.table(inventario)
+    }else{ 
+         alert("PRODUCTO INGRESADO NO EXISTE EN EL INVENTARIO")
     }
 }
 
